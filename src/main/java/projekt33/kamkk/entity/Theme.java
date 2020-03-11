@@ -1,6 +1,5 @@
 package projekt33.kamkk.entity;
 
-import com.sun.xml.internal.ws.spi.db.DatabindingException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
