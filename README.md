@@ -2,7 +2,7 @@
 
 This [Spring Boot](http://projects.spring.io/spring-boot/) application will help in your studies.
 This is the backend side of a card learning project. We are using database ( PostgreSQL ) for saving your cards, card groups and
-of course you scores. That mean you can studying anytime and anywhere you want.
+of course your scores. That means you can study anytime and anywhere you want.
 
 If you want the best user experience use this application with our [Frontend](https://github.com/paramakk/K-A-M-K-K-frontend).
 
