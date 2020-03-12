@@ -1,4 +1,7 @@
 package projekt33.kamkk.service;
 
-public interface CardGroupService {
+import projekt33.kamkk.entity.dto.CardGroupDTO;
+import projekt33.kamkk.service.base.CrudService;
+
+public interface CardGroupService extends CrudService<Long, CardGroupDTO> {
 }
