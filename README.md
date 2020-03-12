@@ -1,4 +1,4 @@
-# springboot-sample-app
+# K-A-M-K-K
 
 This [Spring Boot](http://projects.spring.io/spring-boot/) application will help in your studies.
 This is the backend side of a card learning project. We are using database ( PostgreSQL ) for saving your cards, card groups and
