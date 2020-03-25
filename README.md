@@ -1,3 +1,5 @@
+![Java CI with Maven](https://github.com/paramakk/K-A-M-K-K-backend/workflows/Java%20CI%20with%20Maven/badge.svg)
+
 # K-A-M-K-K
 
 This [Spring Boot](http://projects.spring.io/spring-boot/) application will help in your studies.
