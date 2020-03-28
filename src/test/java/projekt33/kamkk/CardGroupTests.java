@@ -135,21 +135,21 @@ public class CardGroupTests {
 
     @Test
     @Transactional
-    void successfulDeleteByIdWithCardsNull() {
+    void successfulDeleteByIdAndCardsIsNull() {
         cardGroupRepository.deleteByIdAndCardsIsNull(cardGroupId);
         List<CardGroup> cardGroups = cardGroupRepository.findAll();
         assertEquals(0, cardGroups.size());
     }
 
     @Test
-    void unsuccessfulDeleteByIdWithCardsNull() {
+    void unsuccessfulDeleteByIdAndCardsIsNull() {
         cardGroupRepository.deleteByIdAndCardsIsNull(notFoundId);
         List<CardGroup> cardGroups = cardGroupRepository.findAll();
         assertEquals(   1, cardGroups.size());
     }
 
     @Test
-    void unsuccessfulDeleteByIdWithCards() {
+    void unsuccessfulDeleteByIdAndCardsIsNotNull() {
         cardRepository.save(Card.builder()
                 .question("Will Test work?")
                 .answer("I hope so.")
@@ -165,7 +165,7 @@ public class CardGroupTests {
 
     @Test
     @Transactional
-    void successfulDeleteAllByThemeIdWithCardsNull() {
+    void successfulDeleteAllByThemeIdAndCardsIsNull() {
         cardGroupRepository.save(CardGroup.builder()
                 .creationDate(Calendar.getInstance().getTime())
                 .author(userEntityRepository.findById(userId).orElseThrow(EntityNotFoundException::new))
@@ -178,14 +178,14 @@ public class CardGroupTests {
     }
 
     @Test
-    void unsuccessfulDeleteAllByThemeIdWithCardsNull() {
+    void unsuccessfulDeleteAllByThemeIdAndCardsIsNull() {
         cardGroupRepository.deleteAllByThemeIdAndCardsIsNull(notFoundId);
         List<CardGroup> cardGroups = cardGroupRepository.findAll();
         assertEquals(   1, cardGroups.size());
     }
 
     @Test
-    void unsuccessfulDeleteAllByThemeIdWithCards() {
+    void unsuccessfulDeleteAllByThemeIdAndCardsIsNotNull() {
         cardRepository.save(Card.builder()
                 .question("Will Test work?")
                 .answer("I hope so.")
@@ -201,7 +201,7 @@ public class CardGroupTests {
 
     @Test
     @Transactional
-    void successfulDeleteAllByAuthorIdWithCardsNull() {
+    void successfulDeleteAllByAuthorIdAndCardsIsNull() {
         cardGroupRepository.save(CardGroup.builder()
                 .creationDate(Calendar.getInstance().getTime())
                 .author(userEntityRepository.findById(userId).orElseThrow(EntityNotFoundException::new))
@@ -214,14 +214,14 @@ public class CardGroupTests {
     }
 
     @Test
-    void unsuccessfulDeleteAllByAuthorIdWithCardsNull() {
+    void unsuccessfulDeleteAllByAuthorIdAndCardsIsNull() {
         cardGroupRepository.deleteAllByAuthorIdAndCardsIsNull(notFoundId);
         List<CardGroup> cardGroups = cardGroupRepository.findAll();
         assertEquals(   1, cardGroups.size());
     }
 
     @Test
-    void unsuccessfulDeleteAllByAuthorIdWithCards() {
+    void unsuccessfulDeleteAllByAuthorIdAndCardsIsNotNull() {
         cardRepository.save(Card.builder()
                 .question("Will Test work?")
                 .answer("I hope so.")

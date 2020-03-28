@@ -74,7 +74,7 @@ public class ScoreTests {
     }
 
     @Test
-    void testImage() {
+    void testScore() {
         List<Score> scores = scoreRepository.findAll();
         assertEquals(1, scores.size());
     }
