@@ -62,7 +62,7 @@ public class ThemeTests {
     }
 
     @Test
-    void testImage() {
+    void testTheme() {
         List<Theme> themes = themeRepository.findAll();
         assertEquals(1, themes.size());
     }
