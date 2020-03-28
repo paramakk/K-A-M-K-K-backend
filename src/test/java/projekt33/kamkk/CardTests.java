@@ -41,7 +41,13 @@ public class CardTests {
 
     @BeforeEach
     void init() {
-        Card card = cardRepository.save(new Card());
+        Card card = cardRepository.save(Card.builder()
+                .question("Test")
+                .answer("I hope so.")
+                .createdAt(Calendar.getInstance().getTime())
+                .maxPoints(10)
+                .build()
+        );
         cardId = card.getId();
     }
 
