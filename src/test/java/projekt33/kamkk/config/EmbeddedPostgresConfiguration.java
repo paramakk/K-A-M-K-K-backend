@@ -5,6 +5,7 @@ import com.p6spy.engine.spy.P6DataSource;
 import org.postgresql.Driver;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PreDestroy;
@@ -12,7 +13,7 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 
-@Component
+@Configuration
 public class EmbeddedPostgresConfiguration {
 
     static EmbeddedPostgres postgres;
