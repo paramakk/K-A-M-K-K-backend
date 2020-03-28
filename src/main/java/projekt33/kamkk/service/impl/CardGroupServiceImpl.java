@@ -37,7 +37,8 @@ public class CardGroupServiceImpl implements CardGroupService {
 
     @Override
     public void delete(Long id) {
-        cardGroupRepository.delete(cardGroupRepository.findById(id).orElseThrow(EntityNotFoundException::new));
+        cardGroupRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        cardGroupRepository.deleteByIdAndCardsIsNull(id);
 
     }
 }

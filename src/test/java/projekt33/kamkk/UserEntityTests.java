@@ -33,8 +33,6 @@ public class UserEntityTests {
 
     private Long userId;
 
-    private Long notFoundUserId = 9999L;
-
     @BeforeEach
     void init() {
         UserEntity userEntity = userEntityRepository.save(UserEntity.builder()
@@ -47,6 +45,13 @@ public class UserEntityTests {
         );
 
         userId = userEntity.getId();
+    }
+
+    @AfterEach
+    void clean() {
+        scoreRepository.deleteAll();
+        cardGroupRepository.deleteAll();
+        userEntityRepository.deleteAll();
     }
 
     @Test
@@ -63,6 +68,7 @@ public class UserEntityTests {
 
     @Test
     void unsuccessfulFindById() {
+        Long notFoundUserId = 9999L;
         Optional<UserEntity> userEntities = userEntityRepository.findById(notFoundUserId);
         assertFalse(userEntities.isPresent());
     }
@@ -106,10 +112,5 @@ public class UserEntityTests {
         userEntityRepository.deleteByIdAndScoresIsNullAndCreatedCardsIsNull(userId);
         Optional<UserEntity> userEntities = userEntityRepository.findById(userId);
         assertTrue(userEntities.isPresent());
-    }
-
-    @AfterEach
-    void clean() {
-        userEntityRepository.deleteAll();
     }
 }
