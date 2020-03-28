@@ -85,14 +85,14 @@ public class CardGroupTests {
 
     @Test
     void successfulFindById() {
-        Optional<CardGroup> cardGroup = cardGroupRepository.findById(cardGroupId);
-        assertTrue(cardGroup.isPresent());
+        Optional<CardGroup> optionalCardGroup = cardGroupRepository.findById(cardGroupId);
+        assertTrue(optionalCardGroup.isPresent());
     }
 
     @Test
     void unsuccessfulFindById() {
-        Optional<CardGroup> cardGroup = cardGroupRepository.findById(notFoundId);
-        assertFalse(cardGroup.isPresent());
+        Optional<CardGroup> optionalCardGroup = cardGroupRepository.findById(notFoundId);
+        assertFalse(optionalCardGroup.isPresent());
     }
 
     @Test

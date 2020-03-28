@@ -62,23 +62,23 @@ public class UserEntityTests {
 
     @Test
     void successfulFindById() {
-        Optional<UserEntity> userEntities = userEntityRepository.findById(userId);
-        assertTrue(userEntities.isPresent());
+        Optional<UserEntity> optionalUserEntity = userEntityRepository.findById(userId);
+        assertTrue(optionalUserEntity.isPresent());
     }
 
     @Test
     void unsuccessfulFindById() {
         Long notFoundUserId = 9999L;
-        Optional<UserEntity> userEntities = userEntityRepository.findById(notFoundUserId);
-        assertFalse(userEntities.isPresent());
+        Optional<UserEntity> optionalUserEntity = userEntityRepository.findById(notFoundUserId);
+        assertFalse(optionalUserEntity.isPresent());
     }
 
     @Test
     @Transactional
     void successfulDeleteByIdAndScoresIsNullAndCreatedCardsIsNull() {
         userEntityRepository.deleteByIdAndScoresIsNullAndCreatedCardsIsNull(userId);
-        Optional<UserEntity> userEntities = userEntityRepository.findById(userId);
-        assertFalse(userEntities.isPresent());
+        Optional<UserEntity> optionalUserEntity = userEntityRepository.findById(userId);
+        assertFalse(optionalUserEntity.isPresent());
     }
 
     @Test
