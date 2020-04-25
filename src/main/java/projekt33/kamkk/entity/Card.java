@@ -1,13 +1,12 @@
 package projekt33.kamkk.entity;
 
+import java.util.Date;
+import java.util.List;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
 
 @Entity
 @Data
@@ -15,31 +14,28 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class Card {
+  @Id
+  @GeneratedValue
+  private Long id;
 
+  private String question;
 
-    @Id
-    @GeneratedValue
-    private Long id;
+  @ManyToOne
+  private CardGroup cardGroup;
 
-    private String question;
+  private String answer;
 
-    @ManyToOne
-    private CardGroup cardGroup;
+  private int maxPoints;
 
-    private String answer;
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date createdAt;
 
-    private int maxPoints;
+  @OneToMany(mappedBy = "associatedCard")
+  private List<Image> questionImages;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+  @OneToMany(mappedBy = "associatedCard")
+  private List<Image> answerImages;
 
-    @OneToMany(mappedBy = "associatedCard")
-    private List<Image> questionImages;
-
-    @OneToMany(mappedBy = "associatedCard")
-    private List<Image> answerImages;
-
-    @OneToMany(mappedBy = "card")
-    private List<Score> userScores;
-
+  @OneToMany(mappedBy = "card")
+  private List<Score> userScores;
 }

@@ -6,6 +6,5 @@ import projekt33.kamkk.entity.UserEntity;
 
 @Repository
 public interface UserEntityRepository extends JpaRepository<UserEntity, Long> {
-
-    void deleteByIdAndScoresIsNullAndCreatedCardsIsNull(Long id);
+  void deleteByIdAndScoresIsNullAndCreatedCardsIsNull(Long id);
 }
