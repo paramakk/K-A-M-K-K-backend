@@ -1,4 +1,5 @@
 ![Java CI with Maven](https://github.com/paramakk/K-A-M-K-K-backend/workflows/Java%20CI%20with%20Maven/badge.svg)
+![Extra Tool -- Prettier](https://github.com/paramakk/K-A-M-K-K-backend/workflows/Extra%20Tool%20--%20Prettier/badge.svg?branch=master)
 
 # K-A-M-K-K
 
