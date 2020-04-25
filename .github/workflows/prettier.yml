@@ -2,7 +2,7 @@ name: Extra Tool -- Prettier
 
 on:
   push:
-    branches: [master, develop]
+    branches: [ master ]
   pull_request:
     branches: [ master ]
 
@@ -18,7 +18,6 @@ jobs:
     - name: Prettify the Java Code
       uses: lwerner-lshigh/prettier_action_java@v1.1.1
       with:
-        prettier_options: '--no-semi --write *.java'
         branch: ${{ github.head_ref }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
