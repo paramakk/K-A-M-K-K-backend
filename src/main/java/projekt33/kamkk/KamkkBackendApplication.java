@@ -9,14 +9,13 @@ import org.springframework.context.annotation.Scope;
 @SpringBootApplication
 public class KamkkBackendApplication {
 
-    @Bean
-    @Scope("prototype")
-    public ModelMapper modelMapper() {
-        return new ModelMapper();
-    }
+  @Bean
+  @Scope("prototype")
+  public ModelMapper modelMapper() {
+    return new ModelMapper();
+  }
 
-    public static void main(String[] args) {
-        SpringApplication.run(KamkkBackendApplication.class, args);
-    }
-
+  public static void main(String[] args) {
+    SpringApplication.run(KamkkBackendApplication.class, args);
+  }
 }

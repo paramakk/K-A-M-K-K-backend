@@ -6,18 +6,14 @@ import projekt33.kamkk.entity.Card;
 
 @Data
 public class ImageDTO {
+  private Long id;
 
+  private String name;
 
-    private Long id;
+  private String extension;
 
-    private String name;
+  private String mimeType;
 
-    private String extension;
-
-    private String mimeType;
-
-    @JsonBackReference("card-images")
-    private Card associatedCard;
-
-
+  @JsonBackReference("card-images")
+  private Card associatedCard;
 }

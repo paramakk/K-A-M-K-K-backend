@@ -6,7 +6,5 @@ import projekt33.kamkk.entity.Category;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
-
-    void deleteByIdAndThemesIsNull(Long id);
-
+  void deleteByIdAndThemesIsNull(Long id);
 }

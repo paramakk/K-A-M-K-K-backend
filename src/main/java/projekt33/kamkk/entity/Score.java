@@ -1,12 +1,11 @@
 package projekt33.kamkk.entity;
 
+import java.util.Date;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
-import java.util.Date;
 
 @Data
 @Entity
@@ -14,22 +13,20 @@ import java.util.Date;
 @NoArgsConstructor
 @Builder
 public class Score {
+  @Id
+  @GeneratedValue
+  private Long id;
 
-    @Id
-    @GeneratedValue
-    private Long id;
+  @ManyToOne
+  private UserEntity user;
 
-    @ManyToOne
-    private UserEntity user;
+  @ManyToOne
+  private Card card;
 
-    @ManyToOne
-    private Card card;
+  private int submittedScore;
 
-    private int submittedScore;
+  private int revisionNumber;
 
-    private int revisionNumber;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date reviewedAt;
-
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date reviewedAt;
 }
