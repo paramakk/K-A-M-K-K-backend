@@ -38,7 +38,8 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public void delete(Long id) {
-        cardRepository.delete(cardRepository.findById(id).orElseThrow(EntityNotFoundException::new));
+        cardRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        cardRepository.deleteByIdAndUserScoresIsNullAndAnswerImagesIsNullAndQuestionImagesIsNull(id);
 
     }
 }

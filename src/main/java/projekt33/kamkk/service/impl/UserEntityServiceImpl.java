@@ -38,7 +38,7 @@ public class UserEntityServiceImpl implements UserEntityService {
 
     @Override
     public void delete(Long id) {
-        userEntityRepository.delete(userEntityRepository.findById(id).orElseThrow(EntityNotFoundException::new));
-
+        userEntityRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        userEntityRepository.deleteByIdAndScoresIsNullAndCreatedCardsIsNull(id);
     }
 }

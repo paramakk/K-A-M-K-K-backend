@@ -10,6 +10,7 @@ import java.util.List;
 public interface ScoreRepository extends JpaRepository<Score, Long> {
 
     List<Score> findAllByUserId(Long id);
+    List<Score> findAllByCardId(Long id);
 
     void deleteAllByUserId(Long id);
     void deleteAllByCardId(Long id);
