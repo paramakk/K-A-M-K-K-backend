@@ -17,6 +17,13 @@ For building and running the application you need:
 - [Maven 3](https://maven.apache.org)
 - [PostgreSQL 42](https://www.postgresql.org/)
 
+OR
+
+- Docker
+  - If you have Docker installed, you have to clone the [frontend repository](https://github.com/paramakk/K-A-M-K-K-frontend) 
+  in the same folder, where this repository is at, and stepping into _this_ repo's root folder, run the
+  _docker-compose run_ command
+
 ## Running the application locally
 
 There are several ways to run a Spring Boot application on your local machine. One way is to execute the `main` method in the `projekt33.kamkk.KammkkBackendAppliaction` class from your IDE.
