@@ -1,11 +1,11 @@
 package projekt33.kamkk.service.impl;
 
-import javax.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import projekt33.kamkk.entity.Score;
 import projekt33.kamkk.entity.dto.ScoreDTO;
+import projekt33.kamkk.exception.EntityNotFoundException;
 import projekt33.kamkk.repository.ScoreRepository;
 import projekt33.kamkk.service.ScoreService;
 
@@ -20,7 +20,7 @@ public class ScoreServiceImpl implements ScoreService {
   @Override
   public ScoreDTO getById(Long id) {
     return modelMapper.map(
-      scoreRepository.findById(id).orElseThrow(EntityNotFoundException::new),
+      scoreRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id)),
       ScoreDTO.class
     );
   }
@@ -45,7 +45,7 @@ public class ScoreServiceImpl implements ScoreService {
   @Override
   public void delete(Long id) {
     scoreRepository.delete(
-      scoreRepository.findById(id).orElseThrow(EntityNotFoundException::new)
+      scoreRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id))
     );
   }
 }

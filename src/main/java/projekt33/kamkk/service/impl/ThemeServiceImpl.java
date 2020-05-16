@@ -1,11 +1,11 @@
 package projekt33.kamkk.service.impl;
 
-import javax.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import projekt33.kamkk.entity.Theme;
 import projekt33.kamkk.entity.dto.ThemeDTO;
+import projekt33.kamkk.exception.EntityNotFoundException;
 import projekt33.kamkk.repository.ThemeRepository;
 import projekt33.kamkk.service.ThemeService;
 
@@ -20,7 +20,7 @@ public class ThemeServiceImpl implements ThemeService {
   @Override
   public ThemeDTO getById(Long id) {
     return modelMapper.map(
-      themeRepository.findById(id).orElseThrow(EntityNotFoundException::new),
+      themeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id)),
       ThemeDTO.class
     );
   }
@@ -45,7 +45,7 @@ public class ThemeServiceImpl implements ThemeService {
   @Override
   public void delete(Long id) {
     themeRepository.delete(
-      themeRepository.findById(id).orElseThrow(EntityNotFoundException::new)
+      themeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id))
     );
   }
 }
