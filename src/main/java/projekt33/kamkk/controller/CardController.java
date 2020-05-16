@@ -52,8 +52,8 @@ public class CardController extends CrudController<Long, CardDTO> {
 
     @RequestMapping(value = "/user/{username}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<CardDTO>> findAllByUserName(@PathVariable String username) {
-        return new ResponseEntity<>(cardService.findAllByUserName(username), HttpStatus.OK);
+    public ResponseEntity<List<CardDTO>> findAllByUserName(@PathVariable String author) {
+        return new ResponseEntity<>(cardService.findAllByAuthorIs(author), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/card-group/{id}", method = RequestMethod.GET,

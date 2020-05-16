@@ -1,11 +1,12 @@
 package projekt33.kamkk.entity.dto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Data;
+
 import java.util.Date;
 import java.util.List;
-import lombok.Data;
-import projekt33.kamkk.entity.CardGroup;
-import projekt33.kamkk.entity.Category;
 
 @Data
 public class ThemeDTO {
@@ -13,9 +14,11 @@ public class ThemeDTO {
 
   private String title;
 
-  private Category category;
+  @JsonBackReference("category-themes")
+  private CategoryDTO category;
 
-  private List<CardGroup> cardGroups;
+  @JsonManagedReference("theme-cardgroups")
+  private List<CardGroupDTO> cardGroups;
 
   @JsonFormat(
     shape = JsonFormat.Shape.STRING,

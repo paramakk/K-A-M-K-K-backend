@@ -21,8 +21,7 @@ public class CardGroup {
   @Temporal(TemporalType.TIMESTAMP)
   private Date creationDate;
 
-  @ManyToOne
-  private UserEntity author;
+  private String author;
 
   @ManyToOne
   private Theme theme;

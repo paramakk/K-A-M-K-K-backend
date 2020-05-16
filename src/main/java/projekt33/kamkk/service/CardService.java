@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface CardService extends CrudService<Long, CardDTO> {
 
-    List<CardDTO> findAllByUserName(String username);
+    List<CardDTO> findAllByAuthorIs(String author);
     List<CardDTO> findAllByCardGroupId(Long id);
 }

@@ -1,19 +1,16 @@
 package projekt33.kamkk.service.impl;
 
-import javax.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import projekt33.kamkk.entity.Card;
 import projekt33.kamkk.entity.CardGroup;
-import projekt33.kamkk.entity.UserEntity;
-import projekt33.kamkk.entity.dto.CardDTO;
 import projekt33.kamkk.entity.dto.CardDTO;
 import projekt33.kamkk.repository.CardGroupRepository;
 import projekt33.kamkk.repository.CardRepository;
-import projekt33.kamkk.repository.UserEntityRepository;
 import projekt33.kamkk.service.CardService;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +19,7 @@ public class CardServiceImpl implements CardService {
 
   @Autowired
   CardRepository cardRepository;
-  @Autowired
-  UserEntityRepository userEntityRepository;
+
   @Autowired
   CardGroupRepository cardGroupRepository;
 
@@ -57,16 +53,12 @@ public class CardServiceImpl implements CardService {
 
   @Override
   public void delete(Long id) {
-    cardRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-    cardRepository.deleteByIdAndUserScoresIsNullAndAnswerImagesIsNullAndQuestionImagesIsNull(
-      id
-    );
+    cardRepository.delete(cardRepository.findById(id).orElseThrow(EntityNotFoundException::new));
   }
 
   @Override
-  public List<CardDTO> findAllByUserName(String username) {
-    UserEntity userEntity = userEntityRepository.findByName(username).orElseThrow(EntityNotFoundException::new);
-    List<CardGroup> cardGroups = cardGroupRepository.findAllByAuthorId(userEntity.getId());
+  public List<CardDTO> findAllByAuthorIs(String author) {
+    List<CardGroup> cardGroups = cardGroupRepository.findAllByAuthorIs(author);
     List<CardDTO> cardDTOS = new ArrayList<>();
     for(CardGroup cardGroup : cardGroups){
       List<Card> cards = cardRepository.findAllByCardGroupId(cardGroup.getId());
