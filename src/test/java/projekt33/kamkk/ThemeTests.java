@@ -14,12 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import projekt33.kamkk.entity.CardGroup;
 import projekt33.kamkk.entity.Category;
-import projekt33.kamkk.entity.Score;
 import projekt33.kamkk.entity.Theme;
 import projekt33.kamkk.repository.CardGroupRepository;
 import projekt33.kamkk.repository.CategoryRepository;
 import projekt33.kamkk.repository.ThemeRepository;
-import projekt33.kamkk.repository.UserEntityRepository;
 
 @SpringBootTest
 public class ThemeTests {

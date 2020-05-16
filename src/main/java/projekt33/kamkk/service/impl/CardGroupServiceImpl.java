@@ -11,11 +11,18 @@ import projekt33.kamkk.service.CardGroupService;
 
 @Service
 public class CardGroupServiceImpl implements CardGroupService {
-  @Autowired
-  CardGroupRepository cardGroupRepository;
 
-  @Autowired
-  ModelMapper modelMapper;
+    private CardGroupRepository cardGroupRepository;
+
+    private ModelMapper modelMapper;
+
+    @Autowired
+    public CardGroupServiceImpl(CardGroupRepository cardGroupRepository, ModelMapper modelMapper) {
+
+        this.cardGroupRepository = cardGroupRepository;
+        this.modelMapper = modelMapper;
+
+    }
 
   @Override
   public CardGroupDTO getById(Long id) {
@@ -27,27 +34,25 @@ public class CardGroupServiceImpl implements CardGroupService {
     );
   }
 
+    @Override
+    public CardGroupDTO create(CardGroupDTO entity) {
+        return modelMapper.map(
+                cardGroupRepository.save(modelMapper.map(entity, CardGroup.class)),
+                CardGroupDTO.class
+        );
+    }
 
-  @Override
-  public CardGroupDTO create(CardGroupDTO entity) {
-    return modelMapper.map(
-      cardGroupRepository.save(modelMapper.map(entity, CardGroup.class)),
-      CardGroupDTO.class
-    );
-  }
-
-  @Override
-  public CardGroupDTO update(Long id, CardGroupDTO entity) {
-    entity.setId(id);
-    return modelMapper.map(
-      cardGroupRepository.save(modelMapper.map(entity, CardGroup.class)),
-      CardGroupDTO.class
-    );
-  }
+    @Override
+    public CardGroupDTO update(Long id, CardGroupDTO entity) {
+        entity.setId(id);
+        return modelMapper.map(
+                cardGroupRepository.save(modelMapper.map(entity, CardGroup.class)),
+                CardGroupDTO.class
+        );
+    }
 
   @Override
   public void delete(Long id) {
-    cardGroupRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
-    cardGroupRepository.deleteByIdAndCardsIsNull(id);
+    cardGroupRepository.delete(cardGroupRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id)));
   }
 }

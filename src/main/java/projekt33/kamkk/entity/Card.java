@@ -29,13 +29,5 @@ public class Card {
 
   @Temporal(TemporalType.TIMESTAMP)
   private Date createdAt;
-
-  @OneToMany(mappedBy = "associatedCard")
-  private List<Image> questionImages;
-
-  @OneToMany(mappedBy = "associatedCard")
-  private List<Image> answerImages;
-
-  @OneToMany(mappedBy = "card")
-  private List<Score> userScores;
+  
 }

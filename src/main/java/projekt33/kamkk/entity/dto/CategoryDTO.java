@@ -1,9 +1,9 @@
 package projekt33.kamkk.entity.dto;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import java.util.List;
 import lombok.Data;
-import projekt33.kamkk.entity.Theme;
+
+import java.util.List;
 
 @Data
 public class CategoryDTO {
@@ -12,5 +12,5 @@ public class CategoryDTO {
   private String title;
 
   @JsonManagedReference("category-themes")
-  private List<Theme> themes;
+  private List<ThemeDTO> themes;
 }
