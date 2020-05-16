@@ -14,6 +14,8 @@ public class ThemeDTO {
 
   private String title;
 
+  private String secret;
+
   @JsonBackReference("category-themes")
   private CategoryDTO category;
 

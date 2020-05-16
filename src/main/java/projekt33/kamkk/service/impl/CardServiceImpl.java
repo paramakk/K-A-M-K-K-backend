@@ -7,15 +7,19 @@ import projekt33.kamkk.entity.Card;
 import projekt33.kamkk.entity.CardGroup;
 import projekt33.kamkk.entity.dto.CardDTO;
 import projekt33.kamkk.exception.EntityNotFoundException;
+import projekt33.kamkk.exception.InvalidSecretException;
 import projekt33.kamkk.repository.CardGroupRepository;
 import projekt33.kamkk.repository.CardRepository;
 import projekt33.kamkk.service.CardService;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 @Service
 public class CardServiceImpl implements CardService {
+
+  Base64.Encoder encoder = Base64.getEncoder();
 
   @Autowired
   CardRepository cardRepository;
@@ -44,6 +48,9 @@ public class CardServiceImpl implements CardService {
 
   @Override
   public CardDTO update(Long id, CardDTO entity) {
+    Card card = cardRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
+    entity.setSecret(encoder.encodeToString(entity.getSecret().getBytes()));
+    secretCheck(entity,card.getCardGroup());
     entity.setId(id);
     return modelMapper.map(
       cardRepository.save(modelMapper.map(entity, Card.class)),
@@ -78,5 +85,11 @@ public class CardServiceImpl implements CardService {
       cardDTOS.add(modelMapper.map(card, CardDTO.class));
     }
     return cardDTOS;
+  }
+
+  private void secretCheck(CardDTO cardDTO, CardGroup cardGroup){
+    if(!cardDTO.getSecret().equals(cardGroup.getSecret())){
+      throw new InvalidSecretException();
+    }
   }
 }

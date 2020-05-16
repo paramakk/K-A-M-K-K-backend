@@ -20,6 +20,8 @@ public class CardGroupDTO {
 
   private String author;
 
+  private String secret;
+
   @JsonBackReference("theme-cardgroups")
   private ThemeDTO theme;
 

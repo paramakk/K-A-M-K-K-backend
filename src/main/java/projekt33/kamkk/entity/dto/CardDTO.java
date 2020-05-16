@@ -12,6 +12,8 @@ public class CardDTO {
 
   private String question;
 
+  private String secret;
+
 
   @JsonBackReference("cardgroup-cards")
   private CardGroupDTO cardGroup;

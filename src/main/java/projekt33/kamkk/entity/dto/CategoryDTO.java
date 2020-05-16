@@ -11,6 +11,8 @@ public class CategoryDTO {
 
   private String title;
 
+  private String secret;
+
   @JsonManagedReference("category-themes")
   private List<ThemeDTO> themes;
 }
