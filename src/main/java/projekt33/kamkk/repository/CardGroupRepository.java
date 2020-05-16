@@ -8,10 +8,9 @@ import projekt33.kamkk.entity.CardGroup;
 
 @Repository
 public interface CardGroupRepository extends JpaRepository<CardGroup, Long> {
-  List<CardGroup> findAllByAuthorId(Long id);
+  List<CardGroup> findAllByAuthorIs(String author);
   List<CardGroup> findAllByThemeId(Long id);
 
   void deleteByIdAndCardsIsNull(Long id);
   void deleteAllByThemeIdAndCardsIsNull(Long id);
-  void deleteAllByAuthorIdAndCardsIsNull(Long id);
 }

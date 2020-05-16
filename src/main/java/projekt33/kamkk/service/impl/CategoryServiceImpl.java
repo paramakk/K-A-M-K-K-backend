@@ -1,12 +1,12 @@
 package projekt33.kamkk.service.impl;
 
-import javax.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import projekt33.kamkk.entity.Category;
 import projekt33.kamkk.entity.dto.CategoryDTO;
 import projekt33.kamkk.entity.dto.CategoryDTO;
+import projekt33.kamkk.exception.EntityNotFoundException;
 import projekt33.kamkk.repository.CategoryRepository;
 import projekt33.kamkk.service.CategoryService;
 
@@ -21,7 +21,7 @@ public class CategoryServiceImpl implements CategoryService {
   @Override
   public CategoryDTO getById(Long id) {
     return modelMapper.map(
-      categoryRepository.findById(id).orElseThrow(EntityNotFoundException::new),
+      categoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id)),
       CategoryDTO.class
     );
   }
@@ -45,7 +45,6 @@ public class CategoryServiceImpl implements CategoryService {
 
   @Override
   public void delete(Long id) {
-    categoryRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-    categoryRepository.deleteByIdAndThemesIsNull(id);
+    categoryRepository.delete(categoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id)));
   }
 }
