@@ -1,11 +1,11 @@
 package projekt33.kamkk.service.impl;
 
-import javax.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import projekt33.kamkk.entity.CardGroup;
 import projekt33.kamkk.entity.dto.CardGroupDTO;
+import projekt33.kamkk.exception.EntityNotFoundException;
 import projekt33.kamkk.repository.CardGroupRepository;
 import projekt33.kamkk.service.CardGroupService;
 
@@ -22,10 +22,11 @@ public class CardGroupServiceImpl implements CardGroupService {
     return modelMapper.map(
       cardGroupRepository
         .findById(id)
-        .orElseThrow(EntityNotFoundException::new),
+        .orElseThrow(() -> new EntityNotFoundException(id)),
       CardGroupDTO.class
     );
   }
+
 
   @Override
   public CardGroupDTO create(CardGroupDTO entity) {
@@ -46,7 +47,7 @@ public class CardGroupServiceImpl implements CardGroupService {
 
   @Override
   public void delete(Long id) {
-    cardGroupRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+    cardGroupRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
     cardGroupRepository.deleteByIdAndCardsIsNull(id);
   }
 }

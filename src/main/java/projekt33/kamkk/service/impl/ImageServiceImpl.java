@@ -1,12 +1,12 @@
 package projekt33.kamkk.service.impl;
 
-import javax.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import projekt33.kamkk.entity.Image;
 import projekt33.kamkk.entity.dto.ImageDTO;
 import projekt33.kamkk.entity.dto.ImageDTO;
+import projekt33.kamkk.exception.EntityNotFoundException;
 import projekt33.kamkk.repository.ImageRepository;
 import projekt33.kamkk.service.ImageService;
 
@@ -21,7 +21,7 @@ public class ImageServiceImpl implements ImageService {
   @Override
   public ImageDTO getById(Long id) {
     return modelMapper.map(
-      imageRepository.findById(id).orElseThrow(EntityNotFoundException::new),
+      imageRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id)),
       ImageDTO.class
     );
   }
@@ -46,7 +46,7 @@ public class ImageServiceImpl implements ImageService {
   @Override
   public void delete(Long id) {
     imageRepository.delete(
-      imageRepository.findById(id).orElseThrow(EntityNotFoundException::new)
+      imageRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id))
     );
   }
 }
