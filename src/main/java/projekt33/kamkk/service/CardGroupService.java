@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface CardGroupService extends CrudService<Long, CardGroupDTO> {
 
-    CardGroupDTO saveAllCards(Long id, List<CardDTO> cardDTOS);
+    CardGroupDTO saveAllCards(Long id, List<CardDTO> cardDTOS, String secret);
 }

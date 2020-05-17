@@ -3,6 +3,7 @@ package projekt33.kamkk.service.impl;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,16 +94,17 @@ public class CardGroupServiceImpl implements CardGroupService {
   }
 
   @Override
-  public CardGroupDTO saveAllCards(Long id, List<CardDTO> cardDTOS) {
+  public CardGroupDTO saveAllCards(Long id, List<CardDTO> cardDTOS, String secret) {
     CardGroup cardGroup = cardGroupRepository
             .findById(id)
             .orElseThrow(() -> new EntityNotFoundException(id));
-    List<Card> cards = new ArrayList<>();
-    for(CardDTO cardDTO: cardDTOS){
-      cards.add(modelMapper.map(cardDTO, Card.class));
+    if (!cardGroup.getSecret().equals(secret)) {
+      throw new InvalidSecretException();
     }
+    List<Card> cards = cardDTOS.stream().map(cardDTO -> modelMapper.map(cardDTO, Card.class)).collect(Collectors.toList());
     cardRepository.saveAll(cards);
     cardGroup.setCards(cards);
     return modelMapper.map(cardGroupRepository.save(cardGroup), CardGroupDTO.class);
   }
+
 }

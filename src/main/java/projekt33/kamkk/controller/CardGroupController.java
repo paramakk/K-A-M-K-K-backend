@@ -70,7 +70,17 @@ public class CardGroupController extends CrudController<Long, CardGroupDTO> {
           consumes = MediaType.APPLICATION_JSON_VALUE,
           produces = MediaType.APPLICATION_JSON_VALUE
   )
-  public ResponseEntity<CardGroupDTO> saveAllCards(@PathVariable Long id , @RequestBody List<CardDTO> dtos) {
-    return new ResponseEntity<>(cardGroupService.saveAllCards(id,dtos), HttpStatus.OK);
+  public ResponseEntity<CardGroupDTO> saveAllCards(@PathVariable Long id , @RequestBody List<CardDTO> dtos, @RequestBody String secret) {
+    return new ResponseEntity<>(cardGroupService.saveAllCards(id,dtos, secret), HttpStatus.OK);
+  }
+
+  @RequestMapping(
+          value = "{id}/update-all",
+          method = RequestMethod.PATCH,
+          consumes = MediaType.APPLICATION_JSON_VALUE,
+          produces = MediaType.APPLICATION_JSON_VALUE
+  )
+  public ResponseEntity<CardGroupDTO> updateAllCards(@PathVariable Long id , @RequestBody List<CardDTO> dtos, @RequestBody String secret) {
+    return new ResponseEntity<>(cardGroupService.saveAllCards(id,dtos, secret), HttpStatus.OK);
   }
 }
