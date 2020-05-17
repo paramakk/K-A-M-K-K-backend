@@ -10,15 +10,15 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
-import lombok.Builder;
-import lombok.Data;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class CardGroupDTO {
   private Long id;
+
+  private String name;
 
   @JsonFormat(
     shape = JsonFormat.Shape.STRING,

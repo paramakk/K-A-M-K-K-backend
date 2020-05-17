@@ -8,7 +8,7 @@ import projekt33.kamkk.exception.base.BaseException;
 public class InvalidSecretException extends BaseException {
   private static final String ERROR_CODE = "INVALID_SECRET";
 
-    public InvalidSecretException() {
-        super(ERROR_CODE, "Invalid Secret");
-    }
+  public InvalidSecretException() {
+    super(ERROR_CODE, "Invalid Secret");
+  }
 }
