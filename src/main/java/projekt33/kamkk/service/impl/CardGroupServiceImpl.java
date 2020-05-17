@@ -2,6 +2,7 @@ package projekt33.kamkk.service.impl;
 
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,6 +55,7 @@ public class CardGroupServiceImpl implements CardGroupService {
     if (entity.getSecret() == null) {
       throw new InvalidSecretException();
     }
+    entity.setCreationDate(new Date());
     entity.setSecret(encoder.encodeToString(entity.getSecret().getBytes()));
     CardGroup cardGroup = cardGroupRepository.save(
       modelMapper.map(entity, CardGroup.class)

@@ -1,6 +1,8 @@
 package projekt33.kamkk.service.impl;
 
 import java.util.Base64;
+import java.util.Date;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +28,7 @@ public class ThemeServiceImpl implements ThemeService {
     @Autowired
     public ThemeServiceImpl(ThemeRepository themeRepository, ModelMapper modelMapper) {
 
-        modelMapper.createTypeMap(CardGroup.class, CardGroupDTO.class).addMappings(mapper ->{
+        modelMapper.createTypeMap(CardGroup.class, CardGroupDTO.class).addMappings(mapper -> {
             mapper.skip(CardGroupDTO::setCards);
         });
 
@@ -35,55 +37,56 @@ public class ThemeServiceImpl implements ThemeService {
         this.modelMapper = modelMapper;
     }
 
-  @Override
-  public ThemeDTO getById(Long id) {
-    return modelMapper.map(
-      themeRepository
-        .findById(id)
-        .orElseThrow(() -> new EntityNotFoundException(id)),
-      ThemeDTO.class
-    );
-  }
-
-  @Override
-  public ThemeDTO create(ThemeDTO entity) {
-    return modelMapper.map(
-      themeRepository.save(modelMapper.map(entity, Theme.class)),
-      ThemeDTO.class
-    );
-  }
-
-  @Override
-  public ThemeDTO update(Long id, ThemeDTO entity) {
-    Theme theme = themeRepository
-      .findById(id)
-      .orElseThrow(() -> new EntityNotFoundException(id));
-    if (entity.getSecret() == null) {
-      throw new InvalidSecretException();
+    @Override
+    public ThemeDTO getById(Long id) {
+        return modelMapper.map(
+                themeRepository
+                        .findById(id)
+                        .orElseThrow(() -> new EntityNotFoundException(id)),
+                ThemeDTO.class
+        );
     }
-    entity.setSecret(encoder.encodeToString(entity.getSecret().getBytes()));
-    secretCheck(entity, theme);
-    entity.setId(id);
-    return modelMapper.map(
-      themeRepository.save(modelMapper.map(entity, Theme.class)),
-      ThemeDTO.class
-    );
-  }
 
-  @Override
-  public void delete(Long id) {
-    themeRepository.delete(
-      themeRepository
-        .findById(id)
-        .orElseThrow(() -> new EntityNotFoundException(id))
-    );
-  }
-
-  private void secretCheck(ThemeDTO themeDTO, Theme theme) {
-    if (theme.getCategory() != null) {
-      if (!themeDTO.getSecret().equals(theme.getCategory().getSecret())) {
-        throw new InvalidSecretException();
-      }
+    @Override
+    public ThemeDTO create(ThemeDTO entity) {
+        entity.setCreatedAt(new Date());
+        return modelMapper.map(
+                themeRepository.save(modelMapper.map(entity, Theme.class)),
+                ThemeDTO.class
+        );
     }
-  }
+
+    @Override
+    public ThemeDTO update(Long id, ThemeDTO entity) {
+        Theme theme = themeRepository
+                .findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(id));
+        if (entity.getSecret() == null) {
+            throw new InvalidSecretException();
+        }
+        entity.setSecret(encoder.encodeToString(entity.getSecret().getBytes()));
+        secretCheck(entity, theme);
+        entity.setId(id);
+        return modelMapper.map(
+                themeRepository.save(modelMapper.map(entity, Theme.class)),
+                ThemeDTO.class
+        );
+    }
+
+    @Override
+    public void delete(Long id) {
+        themeRepository.delete(
+                themeRepository
+                        .findById(id)
+                        .orElseThrow(() -> new EntityNotFoundException(id))
+        );
+    }
+
+    private void secretCheck(ThemeDTO themeDTO, Theme theme) {
+        if (theme.getCategory() != null) {
+            if (!themeDTO.getSecret().equals(theme.getCategory().getSecret())) {
+                throw new InvalidSecretException();
+            }
+        }
+    }
 }
