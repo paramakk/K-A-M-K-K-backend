@@ -1,5 +1,13 @@
 package projekt33.kamkk;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Optional;
+import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,15 +17,6 @@ import projekt33.kamkk.entity.Card;
 import projekt33.kamkk.entity.CardGroup;
 import projekt33.kamkk.repository.CardGroupRepository;
 import projekt33.kamkk.repository.CardRepository;
-
-import javax.persistence.EntityNotFoundException;
-import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class CardTests {
@@ -93,8 +92,4 @@ public class CardTests {
     List<Card> cards = cardRepository.findAllByCardGroupId(notFoundId);
     assertEquals(0, cards.size());
   }
-
-
-
-
 }

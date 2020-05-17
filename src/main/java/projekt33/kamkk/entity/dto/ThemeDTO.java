@@ -3,16 +3,17 @@ package projekt33.kamkk.entity.dto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.Data;
-
 import java.util.Date;
 import java.util.List;
+import lombok.Data;
 
 @Data
 public class ThemeDTO {
   private Long id;
 
   private String title;
+
+  private String secret;
 
   @JsonBackReference("category-themes")
   private CategoryDTO category;

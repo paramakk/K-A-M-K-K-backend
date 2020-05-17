@@ -23,6 +23,8 @@ public class CardGroup {
 
   private String author;
 
+  private String secret;
+
   @ManyToOne
   private Theme theme;
 

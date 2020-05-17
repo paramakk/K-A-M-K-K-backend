@@ -14,12 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import projekt33.kamkk.entity.Category;
 import projekt33.kamkk.entity.Theme;
-import projekt33.kamkk.repository.CardGroupRepository;
+import projekt33.kamkk.entity.dto.CategoryDTO;
+import projekt33.kamkk.exception.InvalidSecretException;
 import projekt33.kamkk.repository.CategoryRepository;
 import projekt33.kamkk.repository.ThemeRepository;
 
 @SpringBootTest
 public class CategoryTests {
+  private final Long notFoundId = 9999L;
+
   @Autowired
   private CategoryRepository categoryRepository;
 
@@ -27,12 +30,11 @@ public class CategoryTests {
   private ThemeRepository themeRepository;
 
   private Long categoryId;
-  private final Long notFoundId = 9999L;
 
   @BeforeEach
   void init() {
     Category category = categoryRepository.save(
-      Category.builder().title("Category Test").build()
+      Category.builder().title("Category Test").secret("secret").build()
     );
     categoryId = category.getId();
   }
@@ -97,5 +99,49 @@ public class CategoryTests {
     categoryRepository.deleteByIdAndThemesIsNull(categoryId);
     List<Category> categories = categoryRepository.findAll();
     assertEquals(1, categories.size());
+  }
+
+  @Test
+  void successfulUpdate() {
+    CategoryDTO categoryDTO = CategoryDTO
+      .builder()
+      .title("Category Test")
+      .secret("secret")
+      .build();
+
+    Category category = categoryRepository
+      .findById(categoryId)
+      .orElseThrow(EntityNotFoundException::new);
+    try {
+      secretCheck(categoryDTO, category);
+      assertTrue(true);
+    } catch (InvalidSecretException ex) {
+      fail();
+    }
+  }
+
+  @Test
+  void unsuccessfulUpdate() {
+    CategoryDTO categoryDTO = CategoryDTO
+      .builder()
+      .title("Category Test")
+      .secret("fail")
+      .build();
+
+    Category category = categoryRepository
+      .findById(categoryId)
+      .orElseThrow(EntityNotFoundException::new);
+    try {
+      secretCheck(categoryDTO, category);
+      fail();
+    } catch (InvalidSecretException ex) {
+      assertTrue(true);
+    }
+  }
+
+  private void secretCheck(CategoryDTO categoryDTO, Category category) {
+    if (!categoryDTO.getSecret().equals(category.getSecret())) {
+      throw new InvalidSecretException();
+    }
   }
 }

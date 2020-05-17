@@ -2,9 +2,8 @@ package projekt33.kamkk.entity.dto;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
-
 import java.util.Date;
+import lombok.Data;
 
 @Data
 public class CardDTO {
@@ -12,6 +11,7 @@ public class CardDTO {
 
   private String question;
 
+  private String secret;
 
   @JsonBackReference("cardgroup-cards")
   private CardGroupDTO cardGroup;
@@ -23,5 +23,4 @@ public class CardDTO {
     pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
   )
   private Date createdAt;
-
 }
