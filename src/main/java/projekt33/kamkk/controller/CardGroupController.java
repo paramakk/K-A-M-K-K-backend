@@ -14,9 +14,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/card-groups")
+@CrossOrigin("http://localhost:3000")
 public class CardGroupController extends CrudController<Long, CardGroupDTO> {
 
-  CardGroupService cardGroupService;
+  private CardGroupService cardGroupService;
 
   @Autowired
   public CardGroupController(CardGroupService cardGroupService) {

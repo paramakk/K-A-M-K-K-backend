@@ -10,6 +10,7 @@ import projekt33.kamkk.service.ThemeService;
 
 @RestController
 @RequestMapping("api/v1/themes")
+@CrossOrigin("http://localhost:3000")
 public class ThemeController extends CrudController<Long, ThemeDTO> {
 
   @Autowired
