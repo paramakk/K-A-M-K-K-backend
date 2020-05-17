@@ -11,6 +11,6 @@ public class InvalidSecretException extends BaseException {
     private static final String ERROR_CODE = "INVALID_SECRET";
 
     public InvalidSecretException() {
-        super(ERROR_CODE);
+        super(ERROR_CODE, "Invalid Secret");
     }
 }

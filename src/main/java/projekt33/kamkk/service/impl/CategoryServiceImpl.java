@@ -31,6 +31,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryDTO create(CategoryDTO entity) {
+        if(entity.getSecret() == null) {
+            throw new InvalidSecretException();
+        }
         entity.setSecret(encoder.encodeToString(entity.getSecret().getBytes()));
         Category category = categoryRepository.save(modelMapper.map(entity, Category.class));
         category.setSecret(null);
@@ -40,6 +43,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryDTO update(Long id, CategoryDTO entity) {
         Category category = categoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
+        if(entity.getSecret() == null) {
+            throw new InvalidSecretException();
+        }
         entity.setSecret(encoder.encodeToString(entity.getSecret().getBytes()));
         secretCheck(entity, category);
         entity.setId(id);

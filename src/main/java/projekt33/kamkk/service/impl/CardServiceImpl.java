@@ -49,6 +49,9 @@ public class CardServiceImpl implements CardService {
   @Override
   public CardDTO update(Long id, CardDTO entity) {
     Card card = cardRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
+    if(entity.getSecret() == null) {
+      throw new InvalidSecretException();
+    }
     entity.setSecret(encoder.encodeToString(entity.getSecret().getBytes()));
     secretCheck(entity,card);
     entity.setId(id);
