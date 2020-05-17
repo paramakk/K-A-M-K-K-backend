@@ -45,6 +45,9 @@ public class ThemeServiceImpl implements ThemeService {
     Theme theme = themeRepository
       .findById(id)
       .orElseThrow(() -> new EntityNotFoundException(id));
+    if (entity.getSecret() == null) {
+      throw new InvalidSecretException();
+    }
     entity.setSecret(encoder.encodeToString(entity.getSecret().getBytes()));
     secretCheck(entity, theme);
     entity.setId(id);

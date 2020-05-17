@@ -41,6 +41,9 @@ public class CardGroupServiceImpl implements CardGroupService {
 
   @Override
   public CardGroupDTO create(CardGroupDTO entity) {
+    if (entity.getSecret() == null) {
+      throw new InvalidSecretException();
+    }
     entity.setSecret(encoder.encodeToString(entity.getSecret().getBytes()));
     CardGroup cardGroup = cardGroupRepository.save(
       modelMapper.map(entity, CardGroup.class)
@@ -54,6 +57,9 @@ public class CardGroupServiceImpl implements CardGroupService {
     CardGroup cardGroup = cardGroupRepository
       .findById(id)
       .orElseThrow(() -> new EntityNotFoundException(id));
+    if (entity.getSecret() == null) {
+      throw new InvalidSecretException();
+    }
     entity.setSecret(encoder.encodeToString(entity.getSecret().getBytes()));
     secretCheck(entity, cardGroup);
     entity.setId(id);
