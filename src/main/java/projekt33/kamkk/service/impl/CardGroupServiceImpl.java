@@ -39,30 +39,34 @@ public class CardGroupServiceImpl implements CardGroupService {
     return modelMapper.map(cardGroup, CardGroupDTO.class);
   }
 
-    @Override
-    public CardGroupDTO create(CardGroupDTO entity) {
-        if(entity.getSecret() == null) {
-            throw new InvalidSecretException();
-        }
-        entity.setSecret(encoder.encodeToString(entity.getSecret().getBytes()));
-        CardGroup cardGroup = cardGroupRepository.save(modelMapper.map(entity, CardGroup.class));
-        cardGroup.setSecret(null);
-        return modelMapper.map(cardGroup, CardGroupDTO.class);
+  @Override
+  public CardGroupDTO create(CardGroupDTO entity) {
+    if (entity.getSecret() == null) {
+      throw new InvalidSecretException();
     }
+    entity.setSecret(encoder.encodeToString(entity.getSecret().getBytes()));
+    CardGroup cardGroup = cardGroupRepository.save(
+      modelMapper.map(entity, CardGroup.class)
+    );
+    cardGroup.setSecret(null);
+    return modelMapper.map(cardGroup, CardGroupDTO.class);
+  }
 
-    @Override
-    public CardGroupDTO update(Long id, CardGroupDTO entity) {
-        CardGroup cardGroup = cardGroupRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
-        if(entity.getSecret() == null) {
-            throw new InvalidSecretException();
-        }
-        entity.setSecret(encoder.encodeToString(entity.getSecret().getBytes()));
-        secretCheck(entity, cardGroup);
-        entity.setId(id);
-        cardGroupRepository.save(modelMapper.map(entity, CardGroup.class));
-        entity.setSecret(null);
-        return modelMapper.map(entity, CardGroupDTO.class);
+  @Override
+  public CardGroupDTO update(Long id, CardGroupDTO entity) {
+    CardGroup cardGroup = cardGroupRepository
+      .findById(id)
+      .orElseThrow(() -> new EntityNotFoundException(id));
+    if (entity.getSecret() == null) {
+      throw new InvalidSecretException();
     }
+    entity.setSecret(encoder.encodeToString(entity.getSecret().getBytes()));
+    secretCheck(entity, cardGroup);
+    entity.setId(id);
+    cardGroupRepository.save(modelMapper.map(entity, CardGroup.class));
+    entity.setSecret(null);
+    return modelMapper.map(entity, CardGroupDTO.class);
+  }
 
   @Override
   public void delete(Long id) {

@@ -40,20 +40,22 @@ public class ThemeServiceImpl implements ThemeService {
     );
   }
 
-    @Override
-    public ThemeDTO update(Long id, ThemeDTO entity) {
-        Theme theme = themeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
-        if(entity.getSecret() == null) {
-            throw new InvalidSecretException();
-        }
-        entity.setSecret(encoder.encodeToString(entity.getSecret().getBytes()));
-        secretCheck(entity, theme);
-        entity.setId(id);
-        return modelMapper.map(
-                themeRepository.save(modelMapper.map(entity, Theme.class)),
-                ThemeDTO.class
-        );
+  @Override
+  public ThemeDTO update(Long id, ThemeDTO entity) {
+    Theme theme = themeRepository
+      .findById(id)
+      .orElseThrow(() -> new EntityNotFoundException(id));
+    if (entity.getSecret() == null) {
+      throw new InvalidSecretException();
     }
+    entity.setSecret(encoder.encodeToString(entity.getSecret().getBytes()));
+    secretCheck(entity, theme);
+    entity.setId(id);
+    return modelMapper.map(
+      themeRepository.save(modelMapper.map(entity, Theme.class)),
+      ThemeDTO.class
+    );
+  }
 
   @Override
   public void delete(Long id) {
