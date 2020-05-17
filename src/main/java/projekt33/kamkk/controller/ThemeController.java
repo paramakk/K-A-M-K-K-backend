@@ -12,35 +12,48 @@ import projekt33.kamkk.service.ThemeService;
 @RequestMapping("api/v1/themes")
 public class ThemeController extends CrudController<Long, ThemeDTO> {
 
-    @Autowired
-    public ThemeController(ThemeService themeService) {
-        super(themeService);
-    }
+  @Autowired
+  public ThemeController(ThemeService themeService) {
+    super(themeService);
+  }
 
-    @Override
-    @RequestMapping(value = "{id}", method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ThemeDTO> getById(@PathVariable Long id) {
-        return super.getById(id);
-    }
+  @Override
+  @RequestMapping(
+    value = "{id}",
+    method = RequestMethod.GET,
+    produces = MediaType.APPLICATION_JSON_VALUE
+  )
+  public ResponseEntity<ThemeDTO> getById(@PathVariable Long id) {
+    return super.getById(id);
+  }
 
-    @Override
-    @RequestMapping(method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ThemeDTO> create(@RequestBody ThemeDTO dto) {
-        return super.create(dto);
-    }
+  @Override
+  @RequestMapping(
+    method = RequestMethod.POST,
+    consumes = MediaType.APPLICATION_JSON_VALUE,
+    produces = MediaType.APPLICATION_JSON_VALUE
+  )
+  public ResponseEntity<ThemeDTO> create(@RequestBody ThemeDTO dto) {
+    return super.create(dto);
+  }
 
-    @Override
-    @RequestMapping(value = "{id}", method = RequestMethod.PUT,
-            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ThemeDTO> update(@PathVariable Long id, @RequestBody ThemeDTO dto) {
-        return super.update(id, dto);
-    }
+  @Override
+  @RequestMapping(
+    value = "{id}",
+    method = RequestMethod.PUT,
+    consumes = MediaType.APPLICATION_JSON_VALUE,
+    produces = MediaType.APPLICATION_JSON_VALUE
+  )
+  public ResponseEntity<ThemeDTO> update(
+    @PathVariable Long id,
+    @RequestBody ThemeDTO dto
+  ) {
+    return super.update(id, dto);
+  }
 
-    @Override
-    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        return super.delete(id);
-    }
+  @Override
+  @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+  public ResponseEntity<Void> delete(@PathVariable Long id) {
+    return super.delete(id);
+  }
 }
