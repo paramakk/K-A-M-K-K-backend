@@ -13,9 +13,12 @@ import projekt33.kamkk.service.CardGroupService;
 
 @Service
 public class CardGroupServiceImpl implements CardGroupService {
+  Base64.Encoder encoder = Base64.getEncoder();
 
+  @Autowired
   private CardGroupRepository cardGroupRepository;
 
+  @Autowired
   private ModelMapper modelMapper;
 
   @Autowired
@@ -25,7 +28,6 @@ public class CardGroupServiceImpl implements CardGroupService {
   ) {
     this.cardGroupRepository = cardGroupRepository;
     this.modelMapper = modelMapper;
-
   }
 
   @Override
@@ -39,7 +41,10 @@ public class CardGroupServiceImpl implements CardGroupService {
 
   @Override
   public CardGroupDTO create(CardGroupDTO entity) {
-    entity.setSecret(Base64.getEncoder().encodeToString(entity.getSecret().getBytes()));
+    if (entity.getSecret() == null) {
+      throw new InvalidSecretException();
+    }
+    entity.setSecret(encoder.encodeToString(entity.getSecret().getBytes()));
     CardGroup cardGroup = cardGroupRepository.save(
       modelMapper.map(entity, CardGroup.class)
     );
@@ -52,7 +57,10 @@ public class CardGroupServiceImpl implements CardGroupService {
     CardGroup cardGroup = cardGroupRepository
       .findById(id)
       .orElseThrow(() -> new EntityNotFoundException(id));
-    entity.setSecret(Base64.getEncoder().encodeToString(entity.getSecret().getBytes()));
+    if (entity.getSecret() == null) {
+      throw new InvalidSecretException();
+    }
+    entity.setSecret(encoder.encodeToString(entity.getSecret().getBytes()));
     secretCheck(entity, cardGroup);
     entity.setId(id);
     cardGroupRepository.save(modelMapper.map(entity, CardGroup.class));
