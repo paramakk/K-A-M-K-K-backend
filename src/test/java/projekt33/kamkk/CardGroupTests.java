@@ -8,6 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import projekt33.kamkk.entity.Card;
 import projekt33.kamkk.entity.CardGroup;
 import projekt33.kamkk.entity.Theme;
+import projekt33.kamkk.entity.dto.CardGroupDTO;
+import projekt33.kamkk.exception.InvalidSecretException;
 import projekt33.kamkk.repository.CardGroupRepository;
 import projekt33.kamkk.repository.CardRepository;
 import projekt33.kamkk.repository.ThemeRepository;
@@ -53,6 +55,7 @@ public class CardGroupTests {
                 CardGroup
                         .builder()
                         .creationDate(Calendar.getInstance().getTime())
+                        .secret("secret")
                         .author("teszt")
                         .theme(theme)
                         .build()
@@ -143,6 +146,7 @@ public class CardGroupTests {
         assertEquals(0, cardGroups.size());
     }
 
+
     @Test
     @Transactional
     void successfulDeleteByIdAndCardsIsNull() {
@@ -225,6 +229,49 @@ public class CardGroupTests {
         cardGroupRepository.deleteAllByThemeIdAndCardsIsNull(themeId);
         List<CardGroup> cardGroups = cardGroupRepository.findAll();
         assertEquals(1, cardGroups.size());
+    }
+
+    @Test
+    void successfulUpdate() {
+        CardGroupDTO cardGroupDTO = CardGroupDTO.builder()
+                .creationDate(Calendar.getInstance().getTime())
+                .secret("secret")
+                .author("teszt")
+                .theme(null)
+                .build();
+
+        CardGroup cardGroup = cardGroupRepository.findById(cardGroupId).orElseThrow(() -> new projekt33.kamkk.exception.EntityNotFoundException(cardGroupId));
+        try{
+            secretCheck(cardGroupDTO, cardGroup);
+            assertTrue(true);
+        }catch (InvalidSecretException ex){
+            fail();
+        }
+    }
+
+    @Test
+    void unsuccessfulUpdate() {
+        CardGroupDTO cardGroupDTO = CardGroupDTO.builder()
+                .creationDate(Calendar.getInstance().getTime())
+                .secret("fail")
+                .author("teszt")
+                .theme(null)
+                .build();
+
+        CardGroup cardGroup = cardGroupRepository.findById(cardGroupId).orElseThrow(() -> new projekt33.kamkk.exception.EntityNotFoundException(cardGroupId));
+        try{
+            secretCheck(cardGroupDTO, cardGroup);
+            fail();
+        }catch (InvalidSecretException ex){
+            assertTrue(true);
+        }
+
+    }
+
+    private void secretCheck(CardGroupDTO cardGroupDTO, CardGroup cardGroup) {
+        if (!cardGroupDTO.getSecret().equals(cardGroup.getSecret())) {
+            throw new InvalidSecretException();
+        }
     }
 
 }

@@ -19,6 +19,8 @@ public class Category {
 
   private String title;
 
+  private String secret;
+
   @OneToMany(mappedBy = "category")
   private List<Theme> themes;
 }
