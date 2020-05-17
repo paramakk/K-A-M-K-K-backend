@@ -20,8 +20,6 @@ public class Theme {
 
   private String title;
 
-
-
   @ManyToOne
   private Category category;
 

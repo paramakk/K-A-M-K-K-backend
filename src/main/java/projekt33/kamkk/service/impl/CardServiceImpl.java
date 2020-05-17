@@ -50,7 +50,7 @@ public class CardServiceImpl implements CardService {
   public CardDTO update(Long id, CardDTO entity) {
     Card card = cardRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
     entity.setSecret(encoder.encodeToString(entity.getSecret().getBytes()));
-    secretCheck(entity,card.getCardGroup());
+    secretCheck(entity,card);
     entity.setId(id);
     return modelMapper.map(
       cardRepository.save(modelMapper.map(entity, Card.class)),
@@ -87,9 +87,11 @@ public class CardServiceImpl implements CardService {
     return cardDTOS;
   }
 
-  private void secretCheck(CardDTO cardDTO, CardGroup cardGroup){
-    if(!cardDTO.getSecret().equals(cardGroup.getSecret())){
-      throw new InvalidSecretException();
+  private void secretCheck(CardDTO cardDTO, Card card){
+    if(card.getCardGroup() != null){
+      if(!cardDTO.getSecret().equals(card.getCardGroup().getSecret())){
+        throw new InvalidSecretException();
+      }
     }
   }
 }

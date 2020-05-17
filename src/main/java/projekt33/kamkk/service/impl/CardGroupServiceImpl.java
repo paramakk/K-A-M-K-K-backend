@@ -32,33 +32,28 @@ public class CardGroupServiceImpl implements CardGroupService {
 
     @Override
     public CardGroupDTO getById(Long id) {
-        return modelMapper.map(
-                cardGroupRepository
-                        .findById(id)
-                        .orElseThrow(() -> new EntityNotFoundException(id)),
-                CardGroupDTO.class
-        );
+        CardGroup cardGroup = cardGroupRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
+        cardGroup.setSecret(null);
+        return modelMapper.map(cardGroup, CardGroupDTO.class);
     }
 
     @Override
     public CardGroupDTO create(CardGroupDTO entity) {
         entity.setSecret(encoder.encodeToString(entity.getSecret().getBytes()));
-        return modelMapper.map(
-                cardGroupRepository.save(modelMapper.map(entity, CardGroup.class)),
-                CardGroupDTO.class
-        );
+        CardGroup cardGroup = cardGroupRepository.save(modelMapper.map(entity, CardGroup.class));
+        cardGroup.setSecret(null);
+        return modelMapper.map(cardGroup, CardGroupDTO.class);
     }
 
     @Override
     public CardGroupDTO update(Long id, CardGroupDTO entity) {
         CardGroup cardGroup = cardGroupRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
         entity.setSecret(encoder.encodeToString(entity.getSecret().getBytes()));
-        secretCheck(entity,cardGroup);
+        secretCheck(entity, cardGroup);
         entity.setId(id);
-        return modelMapper.map(
-                cardGroupRepository.save(modelMapper.map(entity, CardGroup.class)),
-                CardGroupDTO.class
-        );
+        cardGroupRepository.save(modelMapper.map(entity, CardGroup.class));
+        entity.setSecret(null);
+        return modelMapper.map(entity, CardGroupDTO.class);
     }
 
     @Override
@@ -66,8 +61,8 @@ public class CardGroupServiceImpl implements CardGroupService {
         cardGroupRepository.delete(cardGroupRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id)));
     }
 
-    private void secretCheck(CardGroupDTO cardGroupDTO, CardGroup cardGroup){
-        if(!cardGroupDTO.getSecret().equals(cardGroup.getSecret())){
+    private void secretCheck(CardGroupDTO cardGroupDTO, CardGroup cardGroup) {
+        if (!cardGroupDTO.getSecret().equals(cardGroup.getSecret())) {
             throw new InvalidSecretException();
         }
     }

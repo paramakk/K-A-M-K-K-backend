@@ -43,7 +43,7 @@ public class ThemeServiceImpl implements ThemeService {
     public ThemeDTO update(Long id, ThemeDTO entity) {
         Theme theme = themeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
         entity.setSecret(encoder.encodeToString(entity.getSecret().getBytes()));
-        secretCheck(entity, theme.getCategory());
+        secretCheck(entity, theme);
         entity.setId(id);
         return modelMapper.map(
                 themeRepository.save(modelMapper.map(entity, Theme.class)),
@@ -58,9 +58,11 @@ public class ThemeServiceImpl implements ThemeService {
         );
     }
 
-    private void secretCheck(ThemeDTO themeDTO, Category category) {
-        if (!themeDTO.getSecret().equals(category.getSecret())) {
-            throw new InvalidSecretException();
+    private void secretCheck(ThemeDTO themeDTO, Theme theme) {
+        if(theme.getCategory() != null){
+            if (!themeDTO.getSecret().equals(theme.getCategory().getSecret())) {
+                throw new InvalidSecretException();
+            }
         }
     }
 }
