@@ -8,5 +8,4 @@ import projekt33.kamkk.entity.Card;
 @Repository
 public interface CardRepository extends JpaRepository<Card, Long> {
   List<Card> findAllByCardGroupId(Long id);
-
 }

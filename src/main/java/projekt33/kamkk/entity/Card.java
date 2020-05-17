@@ -29,5 +29,4 @@ public class Card {
 
   @Temporal(TemporalType.TIMESTAMP)
   private Date createdAt;
-  
 }

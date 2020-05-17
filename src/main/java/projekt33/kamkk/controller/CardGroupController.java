@@ -12,35 +12,48 @@ import projekt33.kamkk.service.CardGroupService;
 @RequestMapping("api/v1/card-groups")
 public class CardGroupController extends CrudController<Long, CardGroupDTO> {
 
-    @Autowired
-    public CardGroupController(CardGroupService cardGroupService) {
-        super(cardGroupService);
-    }
+  @Autowired
+  public CardGroupController(CardGroupService cardGroupService) {
+    super(cardGroupService);
+  }
 
-    @Override
-    @RequestMapping(value = "{id}", method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CardGroupDTO> getById(@PathVariable Long id) {
-        return super.getById(id);
-    }
+  @Override
+  @RequestMapping(
+    value = "{id}",
+    method = RequestMethod.GET,
+    produces = MediaType.APPLICATION_JSON_VALUE
+  )
+  public ResponseEntity<CardGroupDTO> getById(@PathVariable Long id) {
+    return super.getById(id);
+  }
 
-    @Override
-    @RequestMapping(method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CardGroupDTO> create(@RequestBody CardGroupDTO dto) {
-        return super.create(dto);
-    }
+  @Override
+  @RequestMapping(
+    method = RequestMethod.POST,
+    consumes = MediaType.APPLICATION_JSON_VALUE,
+    produces = MediaType.APPLICATION_JSON_VALUE
+  )
+  public ResponseEntity<CardGroupDTO> create(@RequestBody CardGroupDTO dto) {
+    return super.create(dto);
+  }
 
-    @Override
-    @RequestMapping(value = "{id}", method = RequestMethod.PUT,
-            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<CardGroupDTO> update(@PathVariable Long id, @RequestBody CardGroupDTO dto) {
-        return super.update(id, dto);
-    }
+  @Override
+  @RequestMapping(
+    value = "{id}",
+    method = RequestMethod.PUT,
+    consumes = MediaType.APPLICATION_JSON_VALUE,
+    produces = MediaType.APPLICATION_JSON_VALUE
+  )
+  public ResponseEntity<CardGroupDTO> update(
+    @PathVariable Long id,
+    @RequestBody CardGroupDTO dto
+  ) {
+    return super.update(id, dto);
+  }
 
-    @Override
-    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        return super.delete(id);
-    }
+  @Override
+  @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+  public ResponseEntity<Void> delete(@PathVariable Long id) {
+    return super.delete(id);
+  }
 }

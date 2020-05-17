@@ -1,5 +1,6 @@
 package projekt33.kamkk.service.impl;
 
+import java.util.Base64;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,32 +11,33 @@ import projekt33.kamkk.exception.InvalidSecretException;
 import projekt33.kamkk.repository.CardGroupRepository;
 import projekt33.kamkk.service.CardGroupService;
 
-import java.util.Base64;
-
-
 @Service
 public class CardGroupServiceImpl implements CardGroupService {
+  Base64.Encoder encoder = Base64.getEncoder();
 
-    Base64.Encoder encoder = Base64.getEncoder();
-    @Autowired
-    private CardGroupRepository cardGroupRepository;
-    @Autowired
-    private ModelMapper modelMapper;
+  @Autowired
+  private CardGroupRepository cardGroupRepository;
 
-    @Autowired
-    public CardGroupServiceImpl(CardGroupRepository cardGroupRepository, ModelMapper modelMapper) {
+  @Autowired
+  private ModelMapper modelMapper;
 
-        this.cardGroupRepository = cardGroupRepository;
-        this.modelMapper = modelMapper;
+  @Autowired
+  public CardGroupServiceImpl(
+    CardGroupRepository cardGroupRepository,
+    ModelMapper modelMapper
+  ) {
+    this.cardGroupRepository = cardGroupRepository;
+    this.modelMapper = modelMapper;
+  }
 
-    }
-
-    @Override
-    public CardGroupDTO getById(Long id) {
-        CardGroup cardGroup = cardGroupRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
-        cardGroup.setSecret(null);
-        return modelMapper.map(cardGroup, CardGroupDTO.class);
-    }
+  @Override
+  public CardGroupDTO getById(Long id) {
+    CardGroup cardGroup = cardGroupRepository
+      .findById(id)
+      .orElseThrow(() -> new EntityNotFoundException(id));
+    cardGroup.setSecret(null);
+    return modelMapper.map(cardGroup, CardGroupDTO.class);
+  }
 
     @Override
     public CardGroupDTO create(CardGroupDTO entity) {
@@ -62,14 +64,18 @@ public class CardGroupServiceImpl implements CardGroupService {
         return modelMapper.map(entity, CardGroupDTO.class);
     }
 
-    @Override
-    public void delete(Long id) {
-        cardGroupRepository.delete(cardGroupRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id)));
-    }
+  @Override
+  public void delete(Long id) {
+    cardGroupRepository.delete(
+      cardGroupRepository
+        .findById(id)
+        .orElseThrow(() -> new EntityNotFoundException(id))
+    );
+  }
 
-    private void secretCheck(CardGroupDTO cardGroupDTO, CardGroup cardGroup) {
-        if (!cardGroupDTO.getSecret().equals(cardGroup.getSecret())) {
-            throw new InvalidSecretException();
-        }
+  private void secretCheck(CardGroupDTO cardGroupDTO, CardGroup cardGroup) {
+    if (!cardGroupDTO.getSecret().equals(cardGroup.getSecret())) {
+      throw new InvalidSecretException();
     }
+  }
 }
