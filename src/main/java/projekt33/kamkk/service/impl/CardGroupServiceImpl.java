@@ -1,19 +1,30 @@
 package projekt33.kamkk.service.impl;
 
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import projekt33.kamkk.entity.Card;
 import projekt33.kamkk.entity.CardGroup;
+import projekt33.kamkk.entity.dto.CardDTO;
 import projekt33.kamkk.entity.dto.CardGroupDTO;
 import projekt33.kamkk.exception.EntityNotFoundException;
 import projekt33.kamkk.exception.InvalidSecretException;
 import projekt33.kamkk.repository.CardGroupRepository;
+import projekt33.kamkk.repository.CardRepository;
 import projekt33.kamkk.service.CardGroupService;
 
 @Service
 public class CardGroupServiceImpl implements CardGroupService {
   Base64.Encoder encoder = Base64.getEncoder();
+
+  @Autowired
+  private CardRepository cardRepository;
 
   @Autowired
   private CardGroupRepository cardGroupRepository;
@@ -44,6 +55,7 @@ public class CardGroupServiceImpl implements CardGroupService {
     if (entity.getSecret() == null) {
       throw new InvalidSecretException();
     }
+    entity.setCreationDate(new Date());
     entity.setSecret(encoder.encodeToString(entity.getSecret().getBytes()));
     CardGroup cardGroup = cardGroupRepository.save(
       modelMapper.map(entity, CardGroup.class)
@@ -82,4 +94,19 @@ public class CardGroupServiceImpl implements CardGroupService {
       throw new InvalidSecretException();
     }
   }
+
+  @Override
+  public CardGroupDTO saveAllCards(Long id, List<CardDTO> cardDTOS, String secret) {
+    CardGroup cardGroup = cardGroupRepository
+            .findById(id)
+            .orElseThrow(() -> new EntityNotFoundException(id));
+    if (!cardGroup.getSecret().equals(secret)) {
+      throw new InvalidSecretException();
+    }
+    List<Card> cards = cardDTOS.stream().map(cardDTO -> modelMapper.map(cardDTO, Card.class)).collect(Collectors.toList());
+    cardRepository.saveAll(cards);
+    cardGroup.setCards(cards);
+    return modelMapper.map(cardGroupRepository.save(cardGroup), CardGroupDTO.class);
+  }
+
 }

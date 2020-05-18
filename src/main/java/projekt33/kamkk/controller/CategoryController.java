@@ -10,6 +10,7 @@ import projekt33.kamkk.service.CategoryService;
 
 @RestController
 @RequestMapping("api/v1/categories")
+@CrossOrigin("http://localhost:3000")
 public class CategoryController extends CrudController<Long, CategoryDTO> {
 
   @Autowired

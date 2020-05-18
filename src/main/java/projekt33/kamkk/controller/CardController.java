@@ -12,6 +12,7 @@ import projekt33.kamkk.service.CardService;
 
 @RestController
 @RequestMapping("api/v1/cards")
+@CrossOrigin("http://localhost:3000")
 public class CardController extends CrudController<Long, CardDTO> {
   private CardService cardService;
 

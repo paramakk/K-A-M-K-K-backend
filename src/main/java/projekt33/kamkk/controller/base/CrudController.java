@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import projekt33.kamkk.service.base.CrudService;
 
 public class CrudController<IdType, DTOType> {
-  protected CrudService<IdType, DTOType> crudService;
+  private CrudService<IdType, DTOType> crudService;
 
   public CrudController(CrudService<IdType, DTOType> crudService) {
     this.crudService = crudService;

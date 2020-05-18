@@ -2,6 +2,7 @@ package projekt33.kamkk.service.impl;
 
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Date;
 import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,7 @@ public class CardServiceImpl implements CardService {
 
   @Override
   public CardDTO create(CardDTO entity) {
+    entity.setCreatedAt(new Date());
     return modelMapper.map(
       cardRepository.save(modelMapper.map(entity, Card.class)),
       CardDTO.class

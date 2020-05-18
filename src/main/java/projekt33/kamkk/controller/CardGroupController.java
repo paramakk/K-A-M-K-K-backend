@@ -1,20 +1,28 @@
 package projekt33.kamkk.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import projekt33.kamkk.controller.base.CrudController;
+import projekt33.kamkk.entity.dto.CardDTO;
 import projekt33.kamkk.entity.dto.CardGroupDTO;
 import projekt33.kamkk.service.CardGroupService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/v1/card-groups")
+@CrossOrigin("http://localhost:3000")
 public class CardGroupController extends CrudController<Long, CardGroupDTO> {
+
+  private CardGroupService cardGroupService;
 
   @Autowired
   public CardGroupController(CardGroupService cardGroupService) {
     super(cardGroupService);
+    this.cardGroupService = cardGroupService;
   }
 
   @Override
@@ -55,5 +63,25 @@ public class CardGroupController extends CrudController<Long, CardGroupDTO> {
   @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
   public ResponseEntity<Void> delete(@PathVariable Long id) {
     return super.delete(id);
+  }
+
+  @RequestMapping(
+          value = "{id}/save-all",
+          method = RequestMethod.POST,
+          consumes = MediaType.APPLICATION_JSON_VALUE,
+          produces = MediaType.APPLICATION_JSON_VALUE
+  )
+  public ResponseEntity<CardGroupDTO> saveAllCards(@PathVariable Long id , @RequestBody List<CardDTO> dtos, @RequestBody String secret) {
+    return new ResponseEntity<>(cardGroupService.saveAllCards(id,dtos, secret), HttpStatus.OK);
+  }
+
+  @RequestMapping(
+          value = "{id}/update-all",
+          method = RequestMethod.PATCH,
+          consumes = MediaType.APPLICATION_JSON_VALUE,
+          produces = MediaType.APPLICATION_JSON_VALUE
+  )
+  public ResponseEntity<CardGroupDTO> updateAllCards(@PathVariable Long id , @RequestBody List<CardDTO> dtos, @RequestBody String secret) {
+    return new ResponseEntity<>(cardGroupService.saveAllCards(id,dtos, secret), HttpStatus.OK);
   }
 }
