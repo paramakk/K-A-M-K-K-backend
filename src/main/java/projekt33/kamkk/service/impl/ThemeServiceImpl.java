@@ -1,7 +1,10 @@
 package projekt33.kamkk.service.impl;
 
 import java.util.Base64;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,6 +90,18 @@ public class ThemeServiceImpl implements ThemeService {
             if (!themeDTO.getSecret().equals(theme.getCategory().getSecret())) {
                 throw new InvalidSecretException();
             }
+        }
+    }
+
+    @Override
+    public List<ThemeDTO> suggestedThemes() {
+        List<Theme> themes = themeRepository.findAll();
+        Collections.shuffle(themes);
+        List<ThemeDTO> themeDTOS = themes.stream().map(theme -> modelMapper.map(theme, ThemeDTO.class)).collect(Collectors.toList());
+        if(themeDTOS.size()>5){
+            return themeDTOS.subList(0,4);
+        }else{
+            return themeDTOS;
         }
     }
 }
