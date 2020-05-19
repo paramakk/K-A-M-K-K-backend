@@ -3,39 +3,39 @@
 -- Data for Name: category; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.category VALUES (1, 'c2NyZXQ=', 'Matematika');
-INSERT INTO public.category VALUES (2, 'c2NyZXQ=', 'Informatika');
-INSERT INTO public.category VALUES (3, 'c2NyZXQ=', 'Kémia');
-INSERT INTO public.category VALUES (4, 'c2NyZXQ=', 'Biológia');
-INSERT INTO public.category VALUES (5, 'c2NyZXQ=', 'Fizika');
-INSERT INTO public.category VALUES (6, 'c2NyZXQ=', 'Közgazdaságtan');
-INSERT INTO public.category VALUES (7, 'c2NyZXQ=', 'Jogtudomány');
+INSERT INTO public.category VALUES (1001, 'c2NyZXQ=', 'Matematika');
+INSERT INTO public.category VALUES (1002, 'c2NyZXQ=', 'Informatika');
+INSERT INTO public.category VALUES (1003, 'c2NyZXQ=', 'Kémia');
+INSERT INTO public.category VALUES (1004, 'c2NyZXQ=', 'Biológia');
+INSERT INTO public.category VALUES (1005, 'c2NyZXQ=', 'Fizika');
+INSERT INTO public.category VALUES (1006, 'c2NyZXQ=', 'Közgazdaságtan');
+INSERT INTO public.category VALUES (1007, 'c2NyZXQ=', 'Jogtudomány');
 
 --
 -- Data for Name: theme; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.theme VALUES (1, NULL, 'Analízis 1', 1);
-INSERT INTO public.theme VALUES (2, NULL, 'Analízis 2', 1);
-INSERT INTO public.theme VALUES (3, NULL, 'Analízis 3', 1);
-INSERT INTO public.theme VALUES (4, NULL, 'Analízis 4', 1);
-INSERT INTO public.theme VALUES (5, NULL, 'Diszkrét matematika 1', 1);
-INSERT INTO public.theme VALUES (6, NULL, 'Diszkrét matematika 2', 1);
-INSERT INTO public.theme VALUES (7, NULL, 'Numerikus módszerek 1', 1);
-INSERT INTO public.theme VALUES (8, NULL, 'Numerikus módszerek 2', 1);
-INSERT INTO public.theme VALUES (9, NULL, 'Programozási alapismeretek', 2);
-INSERT INTO public.theme VALUES (10, NULL, 'Programozás', 2);
-INSERT INTO public.theme VALUES (11, NULL, 'Funkcionális programozás', 2);
-INSERT INTO public.theme VALUES (12, NULL, 'Műszaki kémia', 3);
-INSERT INTO public.theme VALUES (13, NULL, 'Szerves kémia', 3);
-INSERT INTO public.theme VALUES (14, NULL, 'Általános kémia', 3);
-INSERT INTO public.theme VALUES (15, NULL, 'Rendszertan', 4);
-INSERT INTO public.theme VALUES (16, NULL, 'Szervezet', 4);
-INSERT INTO public.theme VALUES (17, NULL, 'Klasszikus fizika', 5);
-INSERT INTO public.theme VALUES (18, NULL, 'Modern fizika', 5);
-INSERT INTO public.theme VALUES (19, NULL, 'Alapismeretek', 6);
-INSERT INTO public.theme VALUES (20, NULL, 'Intézményi közgazdaságtan', 6);
-INSERT INTO public.theme VALUES (21, NULL, 'Alternatív közgazdaságtan', 6);
-INSERT INTO public.theme VALUES (22, NULL, 'Büntetőjog 1', 7);
-INSERT INTO public.theme VALUES (23, NULL, 'Büntetőjog 2', 7);
-INSERT INTO public.theme VALUES (24, NULL, 'Latin', 7);
+INSERT INTO public.theme VALUES (1001, '2020-05-19 14:56:31.585', 'Analízis 1', 1001);
+INSERT INTO public.theme VALUES (1002, '2020-05-19 14:56:31.585', 'Analízis 2', 1001);
+INSERT INTO public.theme VALUES (1003, '2020-05-19 14:56:31.585', 'Analízis 3', 1001);
+INSERT INTO public.theme VALUES (1004, '2020-05-19 14:56:31.585', 'Analízis 4', 1001);
+INSERT INTO public.theme VALUES (1005, '2020-05-19 14:56:31.585', 'Diszkrét matematika 1', 1001);
+INSERT INTO public.theme VALUES (1006, '2020-05-19 14:56:31.585', 'Diszkrét matematika 2', 1001);
+INSERT INTO public.theme VALUES (1007, '2020-05-19 14:56:31.585', 'Numerikus módszerek 1', 1001);
+INSERT INTO public.theme VALUES (1008, '2020-05-19 14:56:31.585', 'Numerikus módszerek 2', 1001);
+INSERT INTO public.theme VALUES (1009, '2020-05-19 14:56:31.585', 'Programozási alapismeretek', 1002);
+INSERT INTO public.theme VALUES (1010, '2020-05-19 14:56:31.585', 'Programozás', 1002);
+INSERT INTO public.theme VALUES (1011, '2020-05-19 14:56:31.585', 'Funkcionális programozás', 1002);
+INSERT INTO public.theme VALUES (1012, '2020-05-19 14:56:31.585', 'Műszaki kémia', 1003);
+INSERT INTO public.theme VALUES (1013, '2020-05-19 14:56:31.585', 'Szerves kémia', 1003);
+INSERT INTO public.theme VALUES (1014, '2020-05-19 14:56:31.585', 'Általános kémia', 1003);
+INSERT INTO public.theme VALUES (1015, '2020-05-19 14:56:31.585', 'Rendszertan', 1004);
+INSERT INTO public.theme VALUES (1016, '2020-05-19 14:56:31.585', 'Szervezet', 1004);
+INSERT INTO public.theme VALUES (1017, '2020-05-19 14:56:31.585', 'Klasszikus fizika', 1005);
+INSERT INTO public.theme VALUES (1018, '2020-05-19 14:56:31.585', 'Modern fizika', 1005);
+INSERT INTO public.theme VALUES (1019, '2020-05-19 14:56:31.585', 'Alapismeretek', 1006);
+INSERT INTO public.theme VALUES (1020, '2020-05-19 14:56:31.585', 'Intézményi közgazdaságtan', 1006);
+INSERT INTO public.theme VALUES (1021, '2020-05-19 14:56:31.585', 'Alternatív közgazdaságtan', 1006);
+INSERT INTO public.theme VALUES (1022, '2020-05-19 14:56:31.585', 'Büntetőjog 1', 1007);
+INSERT INTO public.theme VALUES (1023, '2020-05-19 14:56:31.585', 'Büntetőjog 2', 1007);
+INSERT INTO public.theme VALUES (1024, '2020-05-19 14:56:31.585', 'Latin', 1007);
