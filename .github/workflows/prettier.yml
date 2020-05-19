@@ -3,8 +3,6 @@ name: Extra Tool -- Prettier
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 jobs:
   cleanup_tasks:
