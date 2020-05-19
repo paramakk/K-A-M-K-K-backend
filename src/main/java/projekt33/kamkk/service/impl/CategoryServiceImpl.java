@@ -1,6 +1,9 @@
 package projekt33.kamkk.service.impl;
 
 import java.util.Base64;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -84,5 +87,10 @@ public class CategoryServiceImpl implements CategoryService {
     if (!categoryDTO.getSecret().equals(category.getSecret())) {
       throw new InvalidSecretException();
     }
+  }
+
+  @Override
+  public List<CategoryDTO> findAll() {
+    return categoryRepository.findAll().stream().map(ct -> modelMapper.map(ct, CategoryDTO.class)).collect(Collectors.toList());
   }
 }
